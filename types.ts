@@ -1,3 +1,4 @@
+
 export enum VideoStatus {
   PENDING = 'PENDING',
   PROCESSING_FFMPEG = 'PROCESSING_FFMPEG', // Removing watermark, Compressing
@@ -37,4 +38,4 @@ export interface GeminiMetadataResponse {
   tags: string[];
 }
 
-export type ViewMode = 'ADMIN' | 'CONSUMER' | 'BACKEND_GUIDE' | 'SETTINGS';
+export type ViewMode = 'ADMIN' | 'CONSUMER' | 'BACKEND_GUIDE' | 'SETTINGS' | 'APK_MANAGER';

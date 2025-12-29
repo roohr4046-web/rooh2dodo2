@@ -30,7 +30,7 @@ export const generateVideoMetadata = async (filename: string): Promise<GeminiMet
     `;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash-latest',
+      model: 'gemini-3-flash-preview',
       contents: prompt,
       config: {
         responseMimeType: "application/json",
