@@ -77,8 +77,7 @@ export const ApkManager: React.FC = () => {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    // You might want to add a toast here, but simple alert or logic is okay for this component as per prompt
-    // alert('تم نسخ الرابط!');
+    alert('تم نسخ الرابط بنجاح!');
   };
 
   return (
@@ -223,7 +222,7 @@ export const ApkManager: React.FC = () => {
                             <th className="p-6 text-right">اسم التطبيق</th>
                             <th className="p-6">الحجم</th>
                             <th className="p-6">التاريخ</th>
-                            <th className="p-6">الرابط المباشر</th>
+                            <th className="p-6 w-1/3">الرابط المباشر</th>
                             <th className="p-6 text-right">تحكم</th>
                         </tr>
                     </thead>
@@ -238,9 +237,15 @@ export const ApkManager: React.FC = () => {
                                 </td>
                                 <td className="p-6 text-white/50 text-sm font-mono">{apk.uploadDate}</td>
                                 <td className="p-6">
-                                    <div className="flex items-center gap-2 bg-slate-900/50 border border-slate-700 rounded-lg px-3 py-2 max-w-[250px]">
+                                    <div className="flex items-center gap-2 bg-slate-900 border border-slate-700 rounded-xl p-1 pl-3 group-hover:border-green-500/30 transition-colors">
                                         <span className="text-[10px] text-blue-400 font-mono truncate dir-ltr flex-1" dir="ltr">{apk.url}</span>
-                                        <button onClick={() => copyToClipboard(apk.url)} className="text-slate-400 hover:text-white shrink-0"><IconCopy /></button>
+                                        <button 
+                                            onClick={() => copyToClipboard(apk.url)} 
+                                            className="bg-green-500 hover:bg-green-400 text-black p-2 rounded-lg transition-colors shadow-[0_0_10px_rgba(34,197,94,0.3)] hover:shadow-[0_0_15px_rgba(34,197,94,0.5)]"
+                                            title="نسخ رابط التطبيق"
+                                        >
+                                            <IconCopy />
+                                        </button>
                                     </div>
                                 </td>
                                 <td className="p-6 text-right">

@@ -224,9 +224,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ videos, setVideo
                 <div className="w-full md:w-3/5 bg-black relative flex flex-col border-l border-slate-800">
                     <div className="flex-1 relative flex items-center justify-center bg-black/50 overflow-hidden">
                         <div className={`relative transition-all duration-500 shadow-2xl overflow-hidden bg-black group ring-1 ring-slate-800 ${activeDraft.metadata?.isShorts ? 'aspect-[9/16] h-[90%]' : 'aspect-video w-[95%]'}`}>
+                             {/* Video Player */}
                              <video 
                                 src={getVideoSrc(activeDraft)} 
                                 controls 
+                                autoPlay
                                 className="w-full h-full object-cover" 
                             />
                             {(activeDraft.metadata?.cropBottom || 0) > 0 && (
@@ -286,7 +288,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ videos, setVideo
                                     <div className="space-y-2 p-4 bg-green-500/10 border border-green-500/20 rounded-xl mt-4">
                                         <label className="text-[10px] font-bold text-green-500 uppercase tracking-widest flex items-center gap-2"><IconLink /> رابط التشغيل المباشر</label>
                                         <div className="flex gap-2">
-                                            <input type="text" readOnly value={activeDraft.hlsUrl} className="w-full bg-black/50 border border-green-500/30 rounded-lg p-2 text-xs font-mono text-green-300" />
+                                            <input type="text" readOnly value={activeDraft.hlsUrl} className="w-full bg-black/50 border border-green-500/30 rounded-lg p-2 text-xs font-mono text-green-300 direction-ltr" dir="ltr" />
                                             <button onClick={() => copyToClipboard(activeDraft.hlsUrl!)} className="p-2 bg-green-500 hover:bg-green-400 text-black rounded-lg transition-colors"><IconCopy /></button>
                                         </div>
                                     </div>
@@ -338,14 +340,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ videos, setVideo
                     </div>
 
                     <div className="relative z-10 flex items-center gap-2 mt-4 md:mt-0" onClick={(e) => e.stopPropagation()}>
+                         {/* رابط الفيديو المباشر في القائمة مع زر نسخ */}
                          {video.status === VideoStatus.PUBLISHED && video.hlsUrl && (
                              <div className="flex items-center gap-2 mr-0 md:mr-4 bg-black/50 border border-slate-800 rounded-lg px-3 py-2 w-full md:w-auto justify-between">
-                                 <span className="text-[10px] text-blue-400 font-mono truncate max-w-[150px] md:max-w-[200px]" dir="ltr">{video.hlsUrl}</span>
-                                 <button onClick={(e) => { e.stopPropagation(); copyToClipboard(video.hlsUrl!); }} className="text-slate-400 hover:text-white shrink-0"><IconCopy /></button>
+                                 <div className="flex flex-col">
+                                     <span className="text-[8px] text-slate-500 font-bold uppercase">رابط البث</span>
+                                     <span className="text-[10px] text-blue-400 font-mono truncate max-w-[150px] md:max-w-[200px]" dir="ltr">{video.hlsUrl}</span>
+                                 </div>
+                                 <button onClick={(e) => { e.stopPropagation(); copyToClipboard(video.hlsUrl!); }} className="p-1.5 bg-blue-500/10 hover:bg-blue-500 text-blue-400 hover:text-white rounded transition-colors" title="نسخ الرابط"><IconCopy /></button>
                              </div>
                          )}
-                         <button onClick={(e) => { e.stopPropagation(); handlePreviewVideo(video); }} className="p-3 bg-slate-800 text-slate-400 rounded-xl hover:bg-blue-600 hover:text-white transition-colors"><IconEdit /></button>
-                         <button onClick={(e) => { e.stopPropagation(); handleDeleteVideo(video.id, video.filename); }} className="p-3 bg-slate-800 text-red-500 rounded-xl hover:bg-red-600 hover:text-white transition-colors border border-transparent hover:shadow-[0_0_15px_rgba(239,68,68,0.6)]"><IconTrash /></button>
+                         <button onClick={(e) => { e.stopPropagation(); handlePreviewVideo(video); }} className="p-3 bg-slate-800 text-slate-400 rounded-xl hover:bg-blue-600 hover:text-white transition-colors" title="تعديل / معاينة"><IconEdit /></button>
+                         <button onClick={(e) => { e.stopPropagation(); handleDeleteVideo(video.id, video.filename); }} className="p-3 bg-slate-800 text-red-500 rounded-xl hover:bg-red-600 hover:text-white transition-colors border border-transparent hover:shadow-[0_0_15px_rgba(239,68,68,0.6)]" title="حذف"><IconTrash /></button>
                     </div>
                 </div>
             ))}
